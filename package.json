@@ -1,0 +1,22 @@
+{
+  "name": "@lh1159689533/3droom",
+  "version": "1.0.0",
+  "description": "3d机房",
+  "main": "my3dRoom.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lh1159689533/3droom.git"
+  },
+  "keywords": [
+    "web3d"
+  ],
+  "author": "liuh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lh1159689533/3droom/issues"
+  },
+  "homepage": "https://github.com/lh1159689533/3droom#readme"
+}
