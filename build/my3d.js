@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "eb8eeafddd173163c075";
+/******/ 	var hotCurrentHash = "d0512600bb0013e9f0c9";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -53224,6 +53224,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
       var scale = options.scale || [1, 1, 1]; // 顶
 
       var cabinet_top = this.surface({
+        name: "".concat(name, "_top"),
         size: [len + 0.1, wid + 0.1, 0.1],
         position: [0, wid / 2, hei],
         texture: options.texture && options.texture.top || {
@@ -53233,6 +53234,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
       }); // 底
 
       var cabinet_bottom = this.surface({
+        name: "".concat(name, "_bottom"),
         size: [len, wid, 0.05],
         position: [0, wid / 2, hei],
         texture: options.texture && options.texture.bottom || {
@@ -53241,6 +53243,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
       }); // 左
 
       var cabinet_left = this.surface({
+        name: "".concat(name, "_left"),
         size: [hei, wid, 0.1],
         position: [-len / 2, wid / 2, hei / 2],
         rotate: [0, Math.PI / 180 * 90, 0],
@@ -53250,6 +53253,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
       }); // 右
 
       var cabinet_right = this.surface({
+        name: "".concat(name, "_right"),
         size: [hei, wid, 0.1],
         position: [len / 2, wid / 2, hei / 2],
         rotate: [0, Math.PI / 180 * 90, 0],
@@ -53259,6 +53263,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
       }); // 前
 
       var cabinet_front = this.surface({
+        name: "".concat(name, "_front"),
         size: [len + 0.1, hei, 0.05],
         position: [0, 0, hei / 2],
         rotate: [Math.PI / 180 * 90, 0, 0],
@@ -53268,6 +53273,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
       }); // 后
 
       var cabinet_back = this.surface({
+        name: "".concat(name, "_back"),
         size: [len + 0.1, hei, 0.1],
         position: [0, wid, hei / 2],
         rotate: [Math.PI / 180 * 90, 0, 0],
@@ -53286,6 +53292,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
       allbspmesh.geometry.computeVertexNormals();
       allbspmesh.material = material;
       allbspmesh.castShadow = true;
+      allbspmesh.name = "".concat(name, "_around");
       this.cabinet.add(cabinet_front, cabinet_top, cabinet_bottom, allbspmesh);
 
       (_this$cabinet$positio = this.cabinet.position).set.apply(_this$cabinet$positio, toConsumableArray_default()(position));
@@ -53310,6 +53317,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
         console.error('texture.top对象中url和color必须有一个值不为空.');
       }
 
+      var name = options.name || this.name;
       var position = options.position || [0, 0, 0];
       var rotate = options.rotate || [0, 0, 0];
       var scale = options.scale || [1, 1, 1];
@@ -53361,6 +53369,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
 
       (_surface$scale = surface.scale).set.apply(_surface$scale, toConsumableArray_default()(scale));
 
+      surface.name = name;
       geometry.mergeVertices();
       geometry.computeVertexNormals();
       surface.castShadow = true;
@@ -53507,18 +53516,28 @@ var Obj3d_Obj3d = /*#__PURE__*/function () {
     key: "clone",
     value: function clone(obj, options) {
       var objClone = obj.clone();
+      var oldname = obj.name;
 
       if (options) {
-        for (var key in options) {
-          if (!options[key]) continue;
+        var _loop = function _loop(key) {
+          if (!options[key]) return "continue";
 
-          if (objClone[key].set) {
+          if (['position', 'rotate', 'scale'].indexOf(key) !== -1) {
             var _objClone$key;
 
             (_objClone$key = objClone[key]).set.apply(_objClone$key, toConsumableArray_default()(options[key]));
-          } else {
+          } else if (key === 'name') {
             objClone[key] = options[key];
+            objClone.children && objClone.children.forEach(function (child) {
+              child.name && (child.name = child.name.replace(oldname, options[key]));
+            });
           }
+        };
+
+        for (var key in options) {
+          var _ret = _loop(key);
+
+          if (_ret === "continue") continue;
         }
       }
 
@@ -53551,6 +53570,10 @@ var Obj3d_Obj3d = /*#__PURE__*/function () {
 
           if (option.type === 'wall') {
             params.frames = option.frames;
+          }
+
+          if (option.type === 'floor') {
+            params.shadow = option.shadow;
           }
 
           var obj3d = _this.create(params);
