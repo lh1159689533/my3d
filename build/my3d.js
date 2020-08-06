@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "72cc57ae0ebe83b8e282";
+/******/ 	var hotCurrentHash = "1ba594b87f4092e9c7ff";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -887,24 +887,6 @@ module.exports = _toConsumableArray;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithHoles = __webpack_require__(12);
-
-var iterableToArrayLimit = __webpack_require__(13);
-
-var unsupportedIterableToArray = __webpack_require__(6);
-
-var nonIterableRest = __webpack_require__(14);
-
-function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-}
-
-module.exports = _slicedToArray;
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports) {
 
 function _classCallCheck(instance, Constructor) {
@@ -916,7 +898,7 @@ function _classCallCheck(instance, Constructor) {
 module.exports = _classCallCheck;
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports) {
 
 function _defineProperties(target, props) {
@@ -936,6 +918,24 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(12);
+
+var iterableToArrayLimit = __webpack_require__(13);
+
+var unsupportedIterableToArray = __webpack_require__(6);
+
+var nonIterableRest = __webpack_require__(14);
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
 
 /***/ }),
 /* 4 */
@@ -1175,6 +1175,14 @@ __webpack_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/toConsumableArray.js
 var toConsumableArray = __webpack_require__(0);
 var toConsumableArray_default = /*#__PURE__*/__webpack_require__.n(toConsumableArray);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
+var classCallCheck = __webpack_require__(1);
+var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/createClass.js
+var createClass = __webpack_require__(2);
+var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
 
 // CONCATENATED MODULE: ./node_modules/three/build/three.module.js
 // Polyfills
@@ -51956,16 +51964,8 @@ if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
 
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/slicedToArray.js
-var slicedToArray = __webpack_require__(1);
+var slicedToArray = __webpack_require__(3);
 var slicedToArray_default = /*#__PURE__*/__webpack_require__.n(slicedToArray);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
-var classCallCheck = __webpack_require__(2);
-var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/createClass.js
-var createClass = __webpack_require__(3);
-var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
 
 // CONCATENATED MODULE: ./src/lib/Floor.js
 
@@ -51975,7 +51975,10 @@ var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
 // import * as THREE from 'three';
 
 /**
- * 地板类
+ * @class
+ * @name Floor
+ * @description 地板类
+ * @author liuh
  */
 
 var Floor_Floor = /*#__PURE__*/function () {
@@ -51986,17 +51989,21 @@ var Floor_Floor = /*#__PURE__*/function () {
     this.floor = new Group();
   }
   /**
-   * 创建地板
-   * options:
+   * @method
+   * @description 创建地板
+   * @param {Object} options 地板的各属性参数
+   * @return Object3D
+   * @example options:
    *  {
-   *    name: 'floor',
-   *    type: 'floor',
-   *    size: [1, 1, 1],
-   *    position: [1, 1, 1],
-   *    rotate: [0, 0, 0], // 旋转，单位弧度
-   *    texture: {
-   *      url: 'xxx.jpg',
-   *      repeat: [1, 1]
+   *    name: 'floor',        // 名称
+   *    type: 'floor',        // 类型
+   *    size: [1, 1, 1],      // 长宽高
+   *    position: [1, 1, 1],  // 位置坐标,默认[0, 0, 0]
+   *    rotate: [0, 0, 0],    // 旋转,单位弧度,默认[0, 0, 0]
+   *    scale: [1, 1, 1],     // 缩放,默认[1, 1, 1]
+   *    texture: {            // 材质属性
+   *      url: 'xxx.jpg',     // 材质图片地址
+   *      repeat: [1, 1]      // 材质重复次数,默认[1, 1]
    *    }
    *  }
    */
@@ -52005,7 +52012,7 @@ var Floor_Floor = /*#__PURE__*/function () {
   createClass_default()(Floor, [{
     key: "create",
     value: function create(options) {
-      var _texture$repeat, _floor_mesh$position;
+      var _texture$repeat, _floor_mesh$position, _this$floor$scale;
 
       var name = options.name || this.name;
 
@@ -52014,10 +52021,12 @@ var Floor_Floor = /*#__PURE__*/function () {
           wid = _options$size[1],
           hei = _options$size[2];
 
+      var position = options.position || [0, 0, 0];
+      var scale = options.scale || [1, 1, 1];
+
       var textureUrl = options.texture && options.texture.url || __webpack_require__(15)["default"];
 
       var repeat = options.texture && options.texture.repeat || [36, 20];
-      var position = options.position || [0, 0, 0];
       var hasShadow = false,
           shadowColor,
           shadowOpacity;
@@ -52063,6 +52072,8 @@ var Floor_Floor = /*#__PURE__*/function () {
       } else {
         this.floor.add(floor_mesh);
       }
+
+      (_this$floor$scale = this.floor.scale).set.apply(_this$floor$scale, toConsumableArray_default()(scale));
 
       this.floor.name = name;
       return this.floor;
@@ -52897,11 +52908,13 @@ var Floor_Floor = /*#__PURE__*/function () {
 
 
 
-// import * as THREE from 'three';
 
 
 /**
- * 墙类
+ * @class
+ * @name Wall
+ * @description 墙类
+ * @author liuh
  */
 
 var Wall_Wall = /*#__PURE__*/function () {
@@ -52912,17 +52925,21 @@ var Wall_Wall = /*#__PURE__*/function () {
     this.wall = new Group();
   }
   /**
-   * 创建墙，也在墙上挖洞用于安装门窗，相关属性在frames中配置
-   * options:
+   * @method
+   * @param {Object} options 墙的各属性参数
+   * @description 创建墙，也在墙上挖洞用于安装门窗，相关属性在frames中配置
+   * @return Object3D
+   * @example options:
    *  {
-   *    name: 'wall',
-   *    type: 'wall',
-   *    size: [1, 1, 1],
-   *    position: [1, 1, 1],,
-   *    rotate: [Math.PI/180*90, 0, 0], // xyz旋转,单位弧度
-   *    texture: {
-   *      url: 'xxx.jpg',
-   *      repeat: [1, 1]
+   *    name: 'wall',                   // 名称
+   *    type: 'wall',                   // 类型
+   *    size: [1, 1, 1],                // 长宽高
+   *    position: [1, 1, 1],            // 位置坐标,默认[0, 0, 0]
+   *    rotate: [Math.PI/180*90, 0, 0], // 旋转,单位弧度,默认[0, 0, 0]
+   *    scale: [1, 1, 1],               // 缩放,默认[1, 1, 1]
+   *    texture: {                      // 材质属性
+   *      url: 'xxx.jpg',               // 材质图片地址
+   *      repeat: [1, 1]                // 材质重复次数,默认[1, 1]
    *    }
    *    frames: [
    *      { size: [1, 1, 1], position: [1, 1, 1] },...
@@ -52934,7 +52951,7 @@ var Wall_Wall = /*#__PURE__*/function () {
   createClass_default()(Wall, [{
     key: "create",
     value: function create(options) {
-      var _texture$repeat, _wall$rotation, _wall$position;
+      var _texture$repeat, _wall$rotation, _wall$position, _wall$scale;
 
       var name = options.name || this.name;
 
@@ -52945,6 +52962,7 @@ var Wall_Wall = /*#__PURE__*/function () {
 
       var rotate = options.rotate || [0, 0, 0];
       var position = options.position || [0, 0, 0];
+      var scale = options.scale || [1, 1, 1];
 
       var textureUrl = options.texture && options.texture.url || __webpack_require__(7)["default"];
 
@@ -52964,7 +52982,9 @@ var Wall_Wall = /*#__PURE__*/function () {
 
       (_wall$rotation = wall.rotation).set.apply(_wall$rotation, toConsumableArray_default()(rotate));
 
-      (_wall$position = wall.position).set.apply(_wall$position, toConsumableArray_default()(position)); // 框(用于安装门或者窗户之类)
+      (_wall$position = wall.position).set.apply(_wall$position, toConsumableArray_default()(position));
+
+      (_wall$scale = wall.scale).set.apply(_wall$scale, toConsumableArray_default()(scale)); // 框(用于安装门或者窗户之类)
 
 
       if (options.frames) {
@@ -53048,10 +53068,12 @@ var Wall_Wall = /*#__PURE__*/function () {
 
 
 
-// import * as THREE from 'three';
 
 /**
- * 门类
+ * @class
+ * @name Door
+ * @description 门类
+ * @author liuh
  */
 
 var Door_Door = /*#__PURE__*/function () {
@@ -53062,17 +53084,21 @@ var Door_Door = /*#__PURE__*/function () {
     this.door = new Group();
   }
   /**
-   * 创建门
-   * options:
+   * @method
+   * @description 创建门
+   * @param {Object} options 门的各属性参数
+   * @return Object3D
+   * @example options:
    *  {
-   *    name: 'door',
-   *    type: 'door',
-   *    size: [1, 1, 1],
-   *    position: [1, 1, 1],
-   *    rotate: [0, 0, 0], // 旋转，单位弧度
-   *    texture: {
-   *      url: 'xxx.jpg',
-   *      repeat: [1, 1]
+   *    name: 'door',         // 名称
+   *    type: 'door',         // 类型
+   *    size: [1, 1, 1],      // 长宽高
+   *    position: [1, 1, 1],  // 位置坐标,默认[0, 0, 0]
+   *    rotate: [0, 0, 0],    // 旋转,单位弧度,默认[0, 0, 0]
+   *    scale: [1, 1, 1],     // 缩放,默认[1, 1, 1]
+   *    texture: {            // 材质属性
+   *      url: 'xxx.jpg',     // 材质图片地址
+   *      repeat: [1, 1]      // 材质重复次数,默认[1, 1]
    *    }
    *  }
    */
@@ -53081,7 +53107,7 @@ var Door_Door = /*#__PURE__*/function () {
   createClass_default()(Door, [{
     key: "create",
     value: function create(options) {
-      var _texture$repeat, _door$rotation, _door$position;
+      var _texture$repeat, _door$rotation, _door$position, _door$scale;
 
       var name = options.name || this.name;
 
@@ -53092,6 +53118,7 @@ var Door_Door = /*#__PURE__*/function () {
 
       var rotate = options.rotate || [0, 0, 0];
       var position = options.position || [0, 0, 0];
+      var scale = options.scale || [1, 1, 1];
 
       var textureUrl = options.texture && options.texture.url || __webpack_require__(17)["default"];
 
@@ -53113,6 +53140,8 @@ var Door_Door = /*#__PURE__*/function () {
 
       (_door$position = door.position).set.apply(_door$position, toConsumableArray_default()(position));
 
+      (_door$scale = door.scale).set.apply(_door$scale, toConsumableArray_default()(scale));
+
       door.name = name;
       this.door = door;
       return this.door;
@@ -53133,10 +53162,13 @@ var construct_default = /*#__PURE__*/__webpack_require__.n(construct);
 
 
 
-// import * as THREE from 'three';
 
 /**
- * 机柜类
+ * @class
+ * @name Cabinet
+ * @description 机柜类
+ * @author liuh
+ * @date 2020.8.6
  */
 
 var Cabinet_Cabinet = /*#__PURE__*/function () {
@@ -53147,25 +53179,29 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
     this.cabinet = new Group();
   }
   /**
-   * 创建机柜
-   * options:
+   * @method
+   * @description 创建机柜
+   * @param {Object} options 机柜的各属性参数
+   * @return Object3D
+   * @example options:
    *  {
-   *    name: 'cabinet',
-   *    type: 'cabinet',
-   *    size: [1, 1, 1],  // 尺寸大小,
-   *    rotate: [Math.PI/180*90, 0, 0], // xyz旋转,单位弧度
-   *    position: [1, 1, 1],  // xyz位置
-   *    texture: {  // 各个面的材质
-   *      top: {
-   *        url: 'xxx.jpg', //顶面的材质，如果该值为空，则使用颜色属性，url和color必须有一个不为空
-   *        repeat: [1, 1],
-   *        color: '#e3edf7'  // 顶面的颜色，如果该值为空，则使用材质属性，url和color必须有一个不为空
+   *    name: 'cabinet',                // 名称
+   *    type: 'cabinet',                // 类型
+   *    size: [1, 1, 1],                // 长宽高
+   *    rotate: [Math.PI/180*90, 0, 0], // 旋转,单位弧度,默认[0, 0, 0]
+   *    position: [1, 1, 1],            // 位置坐标,默认[0, 0, 0]
+   *    scale: [1, 1, 1],               // 缩放,默认[1, 1, 1]
+   *    texture: {                      // 各个面的材质
+   *      top: {                        // 顶面
+   *        url: 'xxx.jpg',             //材质图片地址,如果该值为空,则使用颜色,url和color必须有一个不为空
+   *        repeat: [1, 1],             // 材质重复次数,默认[1, 1]
+   *        color: '#e3edf7'            // 颜色,如果该值为空,则使用材质图片,url和color必须有一个不为空
    *      },
-   *      left: {...},
-   *      right: {...},
-   *      front: {...},
-   *      back: {...},
-   *      bottom: {...}
+   *      left: {...},                  // 同顶面
+   *      right: {...},                 // 同顶面
+   *      front: {...},                 // 同顶面
+   *      back: {...},                  // 同顶面
+   *      bottom: {...}                 // 同顶面
    *    }
    *  }
    */
@@ -53174,7 +53210,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
   createClass_default()(Cabinet, [{
     key: "create",
     value: function create(options) {
-      var _this$cabinet$positio, _this$cabinet$rotatio;
+      var _this$cabinet$positio, _this$cabinet$rotatio, _this$cabinet$scale;
 
       var name = options.name || this.name;
 
@@ -53184,7 +53220,8 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
           hei = _options$size[2];
 
       var rotate = options.rotate || [0, 0, 0];
-      var position = options.position || [0, 0, 0]; // 顶
+      var position = options.position || [0, 0, 0];
+      var scale = options.scale || [1, 1, 1]; // 顶
 
       var cabinet_top = this.surface({
         size: [len + 0.1, wid + 0.1, 0.1],
@@ -53255,13 +53292,19 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
 
       (_this$cabinet$rotatio = this.cabinet.rotation).set.apply(_this$cabinet$rotatio, toConsumableArray_default()(rotate));
 
+      (_this$cabinet$scale = this.cabinet.scale).set.apply(_this$cabinet$scale, toConsumableArray_default()(scale));
+
       this.cabinet.name = name;
       return this.cabinet;
     }
+    /**
+     * @private
+     */
+
   }, {
     key: "surface",
     value: function surface(options) {
-      var _surface$position, _surface$rotation;
+      var _surface$position, _surface$rotation, _surface$scale;
 
       if (!options.texture.url && !options.texture.color) {
         console.error('texture.top对象中url和color必须有一个值不为空.');
@@ -53269,6 +53312,7 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
 
       var position = options.position || [0, 0, 0];
       var rotate = options.rotate || [0, 0, 0];
+      var scale = options.scale || [1, 1, 1];
       var textureUrl = options.texture && options.texture.url;
       var textureColor = options.texture && options.texture.color;
       var repeat = options.texture && options.texture.repeat || [1, 1];
@@ -53315,6 +53359,8 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
 
       (_surface$rotation = surface.rotation).set.apply(_surface$rotation, toConsumableArray_default()(rotate));
 
+      (_surface$scale = surface.scale).set.apply(_surface$scale, toConsumableArray_default()(scale));
+
       geometry.mergeVertices();
       geometry.computeVertexNormals();
       surface.castShadow = true;
@@ -53331,10 +53377,12 @@ var Cabinet_Cabinet = /*#__PURE__*/function () {
 
 
 
-// import * as THREE from 'three';
 
 /**
- * 柱子类
+ * @class
+ * @name Pillar
+ * @description 柱子类
+ * @author liuh
  */
 
 var Pillar_Pillar = /*#__PURE__*/function () {
@@ -53345,17 +53393,21 @@ var Pillar_Pillar = /*#__PURE__*/function () {
     this.pillar = new Group();
   }
   /**
-   * 创建柱子
-   * options:
+   * @method
+   * @description 创建柱子
+   * @param {Object} options 柱子的各属性参数
+   * @return Object3D
+   * @example options:
    *  {
-   *    name: 'pillar',
-   *    type: 'pillar',
-   *    size: [1, 1, 1],
-   *    position: [1, 1, 1],
-   *    rotate: [Math.PI/180*90, 0, 0], // xyz旋转,单位弧度
-   *    texture: {
-   *      url: 'xxx.jpg',
-   *      repeat: [1, 1]
+   *    name: 'pillar',                 // 名称
+   *    type: 'pillar',                 // 类型
+   *    size: [1, 1, 1],                // 长宽高
+   *    position: [1, 1, 1],            // 位置坐标,默认[0, 0, 0]
+   *    rotate: [Math.PI/180*90, 0, 0], // 旋转,单位弧度,默认[0, 0, 0]
+   *    scale: [1, 1, 1],               // 缩放,默认[1, 1, 1]
+   *    texture: {                      // 材质属性
+   *      url: 'xxx.jpg',               // 材质图片地址
+   *      repeat: [1, 1]                // 材质重复次数,默认[1, 1]
    *    }
    *  }
    */
@@ -53364,7 +53416,7 @@ var Pillar_Pillar = /*#__PURE__*/function () {
   createClass_default()(Pillar, [{
     key: "create",
     value: function create(options) {
-      var _texture$repeat, _pillar$rotation, _pillar$position;
+      var _texture$repeat, _pillar$rotation, _pillar$position, _pillar$scale;
 
       var _options$size = slicedToArray_default()(options.size, 3),
           len = _options$size[0],
@@ -53374,6 +53426,7 @@ var Pillar_Pillar = /*#__PURE__*/function () {
       var name = options.name || this.name;
       var rotate = options.rotate || [0, 0, 0];
       var position = options.position || [0, 0, 0];
+      var scale = options.scale || [1, 1, 1];
 
       var textureUrl = options.texture && options.texture.url || __webpack_require__(7)["default"];
 
@@ -53395,6 +53448,8 @@ var Pillar_Pillar = /*#__PURE__*/function () {
 
       (_pillar$position = pillar.position).set.apply(_pillar$position, toConsumableArray_default()(position));
 
+      (_pillar$scale = pillar.scale).set.apply(_pillar$scale, toConsumableArray_default()(scale));
+
       pillar.name = name;
       this.pillar = pillar;
       return this.pillar;
@@ -53405,12 +53460,128 @@ var Pillar_Pillar = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ var lib_Pillar = (Pillar_Pillar);
-// CONCATENATED MODULE: ./src/lib/index.js
+// CONCATENATED MODULE: ./src/lib/Obj3d.js
 
 
 
 
 
+
+
+
+
+/**
+ * @class
+ * @name Obj3d
+ * @description Object3D类
+ * @author liuh
+ * @date 2020.8.6
+ */
+
+var Obj3d_Obj3d = /*#__PURE__*/function () {
+  function Obj3d() {
+    classCallCheck_default()(this, Obj3d);
+  }
+
+  createClass_default()(Obj3d, [{
+    key: "create",
+
+    /**
+     * @method
+     * @description 创建一个Object3D对象
+     * @param {Object} options Object3D对象的各项参数,参数详情请看对应类型的类描述
+     * @return Object3D
+     */
+    value: function create(options) {
+      return ModelUtils[options.type](options);
+    }
+    /**
+     * @method
+     * @description 拷贝一个Object3D对象
+     * @param {Object3D} obj Object3D对象或者其子类
+     * @param {Object} options 一个Object,支持的属性有: position,rotate,scale,name
+     * @return Object3D
+     */
+
+  }, {
+    key: "clone",
+    value: function clone(obj, options) {
+      var objClone = obj.clone();
+
+      if (options) {
+        for (var key in options) {
+          if (!options[key]) continue;
+
+          if (objClone[key].set) {
+            var _objClone$key;
+
+            (_objClone$key = objClone[key]).set.apply(_objClone$key, toConsumableArray_default()(options[key]));
+          } else {
+            objClone[key] = options[key];
+          }
+        }
+      }
+
+      return objClone;
+    }
+    /**
+     * @method
+     * @description 根据json数组批量创建一组Object3D对象
+     * @param {String} name 组名称
+     * @param {Array} options json数组结构,参数详情请看对应类型的类描述
+     * @return Object3D
+     */
+
+  }, {
+    key: "createGroup",
+    value: function createGroup(name, options) {
+      var _this = this;
+
+      if (options && options.length > 0) {
+        var group = new Group();
+        group.name = name;
+        options.forEach(function (option) {
+          var params = {
+            name: option.name,
+            type: option.type,
+            size: option.size,
+            position: option.position,
+            rotate: option.rotate
+          };
+
+          if (option.type === 'wall') {
+            params.frames = option.frames;
+          }
+
+          var obj3d = _this.create(params);
+
+          group.add(obj3d);
+
+          if (obj3d && option.clone && option.clone.length > 0) {
+            option.clone.forEach(function (c) {
+              group.add(models.clone(obj3d, {
+                name: c.name,
+                position: c.position,
+                rotate: c.rotate,
+                scale: c.scale
+              }));
+            });
+          }
+        });
+        return group;
+      } else {
+        console.error('传入的参数为空或格式不正确.');
+        return null;
+      }
+    }
+  }]);
+
+  return Obj3d;
+}();
+/**
+ * @factory
+ * @description 工厂类，根据类型创建对应类型的Object3D对象
+ */
 
 
 var ModelUtils = {
@@ -53430,80 +53601,7 @@ var ModelUtils = {
     return new lib_Pillar().create(options);
   }
 };
-var models = {
-  /**
-   * 创建一个Object3D对象
-   */
-  create: function create(options) {
-    return ModelUtils[options.type](options);
-  },
-
-  /**
-   * 拷贝一个Object3D对象
-   * obj: Object3D对象或者其子类
-   * options: 一个Object,支持的属性有: position,rotate,scale,name
-   */
-  clone: function clone(obj, options) {
-    var objClone = obj.clone();
-
-    if (options) {
-      for (var key in options) {
-        if (!options[key]) continue;
-
-        if (objClone[key].set) {
-          var _objClone$key;
-
-          (_objClone$key = objClone[key]).set.apply(_objClone$key, toConsumableArray_default()(options[key]));
-        } else {
-          objClone[key] = options[key];
-        }
-      }
-    }
-
-    return objClone;
-  },
-  createGroup: function createGroup(name, options) {
-    var _this = this;
-
-    if (options && options.length > 0) {
-      var group = new Group();
-      group.name = name;
-      options.forEach(function (option) {
-        var params = {
-          name: option.name,
-          type: option.type,
-          size: option.size,
-          position: option.position,
-          rotate: option.rotate
-        };
-
-        if (option.type === 'wall') {
-          params.frames = option.frames;
-        }
-
-        var obj3d = _this.create(params);
-
-        group.add(obj3d);
-
-        if (obj3d && option.clone && option.clone.length > 0) {
-          option.clone.forEach(function (c) {
-            group.add(models.clone(obj3d, {
-              name: c.name,
-              position: c.position,
-              rotate: c.rotate,
-              scale: c.scale
-            }));
-          });
-        }
-      });
-      return group;
-    } else {
-      console.error('传入的参数为空或格式不正确.');
-      return null;
-    }
-  }
-};
-/* harmony default export */ var lib = __webpack_exports__["default"] = (models);
+/* harmony default export */ var lib_Obj3d = __webpack_exports__["default"] = (new Obj3d_Obj3d());
 
 /***/ })
 /******/ ])["default"];
