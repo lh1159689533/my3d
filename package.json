@@ -1,8 +1,8 @@
 {
-  "name": "@liuh/3droom",
+  "name": "@liuh/my3d",
   "version": "1.0.0",
-  "description": "3d机房",
-  "main": "my3dRoom.js",
+  "description": "es6写的web3d",
+  "main": "build/my3d.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
