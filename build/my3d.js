@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "1ba594b87f4092e9c7ff";
+/******/ 	var hotCurrentHash = "eb8eeafddd173163c075";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -53482,16 +53482,16 @@ var Obj3d_Obj3d = /*#__PURE__*/function () {
   function Obj3d() {
     classCallCheck_default()(this, Obj3d);
   }
+  /**
+   * @method
+   * @description 创建一个Object3D对象
+   * @param {Object} options Object3D对象的各项参数,参数详情请看对应类型的类描述
+   * @return Object3D
+   */
+
 
   createClass_default()(Obj3d, [{
     key: "create",
-
-    /**
-     * @method
-     * @description 创建一个Object3D对象
-     * @param {Object} options Object3D对象的各项参数,参数详情请看对应类型的类描述
-     * @return Object3D
-     */
     value: function create(options) {
       return ModelUtils[options.type](options);
     }
@@ -53559,7 +53559,7 @@ var Obj3d_Obj3d = /*#__PURE__*/function () {
 
           if (obj3d && option.clone && option.clone.length > 0) {
             option.clone.forEach(function (c) {
-              group.add(models.clone(obj3d, {
+              group.add(_this.clone(obj3d, {
                 name: c.name,
                 position: c.position,
                 rotate: c.rotate,
