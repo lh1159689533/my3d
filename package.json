@@ -1,6 +1,6 @@
 {
   "name": "@liuh/my3d",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "es6写的web3d",
   "main": "build/my3d.min.js",
   "scripts": {
