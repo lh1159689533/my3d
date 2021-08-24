@@ -1,6 +1,6 @@
 # my3d
 
-使用es6写的3d组件
+使用es6写的3d组件11
 
 ## 安装
 `npm install git+https://github.com/lh1159689533/my3d.git --save`
